@@ -2,6 +2,7 @@ name: super_editor_json
 description: Converts SuperEditor Document to JSON format with support for custom components.
 version: 0.0.9
 homepage: https://github.com/Dboy233/super_editor_json
+publish_to: none # FIXME REMOVE BEFORE PR
 
 screenshots:
   - description: "The document is parsed into a screenshot of the JSON format"
@@ -10,18 +11,19 @@ screenshots:
     path: screenshot2.png
 
 environment:
-  sdk: ">=2.12.0"
+  sdk:  ">=3.0.6 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  super_editor: '<=0.2.6'
+  super_editor: # FIXME: change after new version of super_editor comes out '<=0.2.6'
+    path: ../super_editor/super_editor
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

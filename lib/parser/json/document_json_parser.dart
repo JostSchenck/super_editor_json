@@ -125,7 +125,7 @@ abstract class BaseDocumentJsonSerialize<T extends DocumentNode> implements AbsD
   //endregion
 
   ///快速创建id,Quickly create IDs
-  get nodeId => DocumentEditor.createNodeId();
+  get nodeId => Editor.createNodeId();
 
   ///设置全局自定义[Attribution]属性序列化构建器
   ///如果你为节点自定义了 [Attribution] , 那么就需要自己配置序列化
@@ -224,11 +224,11 @@ abstract class BaseDocumentJsonSerialize<T extends DocumentNode> implements AbsD
   AttributedText deserializeAttrText(Map<String, dynamic>? map,
       {AttributionDeserializeBuilder? deserializeAttributionBuilder}) {
     if (map == null) {
-      return AttributedText(text: '');
+      return AttributedText('');
     }
     return AttributedText(
-      text: map[keyText] ?? '',
-      spans: deserializeSpans(
+      map[keyText] ?? '',
+      deserializeSpans(
         map[keySpans] ?? [],
         deserializeAttributionBuilder: deserializeAttributionBuilder,
       ),

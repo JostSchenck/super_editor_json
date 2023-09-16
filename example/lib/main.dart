@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:super_editor/super_editor.dart';
 import 'package:super_editor_json/parser/json/document_json_parser.dart';
 
-import '_color_attribution.dart';
+import '_color_attribution_extension.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,14 +31,19 @@ class EditorPage extends StatefulWidget {
 
 class _EditorPageState extends State<EditorPage> {
   late Document document;
-  late DocumentEditor editor;
+  late Editor editor;
+  late MutableDocumentComposer composer;
 
   @override
   void initState() {
     //Create a document using json.
-    document = createInitialDocument();
     // document = DocumentJson.fromJson(jsonDocument, attributionDeserializeBuilder: deserializeAttr);
-    editor = DocumentEditor(document: document as MutableDocument);
+    document = createInitialDocument();
+    composer = MutableDocumentComposer();
+    editor = createDefaultDocumentEditor(
+      document: document as MutableDocument,
+      composer: composer,
+    );
     super.initState();
   }
 
@@ -90,7 +95,9 @@ class _EditorPageState extends State<EditorPage> {
         title: const Text('super editor json'),
       ),
       body: SuperEditor(
+        document: document as MutableDocument,
         editor: editor,
+        composer: composer,
         componentBuilders: [
           TaskComponentBuilder(editor),
           ...defaultComponentBuilders,
@@ -100,8 +107,8 @@ class _EditorPageState extends State<EditorPage> {
         ///查看[_ColorAttribution]的注释
         stylesheet: defaultStylesheet.copyWith(
           inlineTextStyler: (attributions, existingStyle) {
-
-            TextStyle newStyle = defaultInlineTextStyler(attributions, existingStyle);
+            TextStyle newStyle =
+                defaultInlineTextStyler(attributions, existingStyle);
 
             for (final attribution in attributions) {
               newStyle = newStyle.mergeColorAttribution(attribution);

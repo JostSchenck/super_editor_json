@@ -15,7 +15,8 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
-  super_editor: ^0.2.6
+  super_editor: # FIXME  change after new version of super_editor comes out '<=0.2.6'
+    path: ../../super_editor/super_editor
   super_editor_json:
     path: ../../super_editor_json
 
